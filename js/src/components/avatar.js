@@ -47,6 +47,6 @@
     }
 
     // Load into frontbx DOM core
-    frontbx.dom().register('Avatar', extend(Component, Avatar));
+    frontbx..register('Avatar', extend(Component, Avatar));
 
 })();

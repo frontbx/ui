@@ -9,4 +9,5 @@ import './utils/dom/form_inputs.js';
 import './utils/dom/form_values.js';
 import './utils/dom/has_class.js';
 import './utils/dom/height.js';
+import './utils/dom/inner_HTML.js';
 import './utils/dom/remove_class.js';

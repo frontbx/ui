@@ -85,7 +85,7 @@
      * @return {Function}
      */
     function _comoponentRenderFn(fn, props)
-    {        
+    {
         if (is_constructed(fn))
         {           
             if (!fn.render) throw new Error('Object Components must implement the [render] method');

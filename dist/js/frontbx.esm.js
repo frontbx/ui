@@ -4061,18 +4061,16 @@ _.prototype.in_viewport = function(el)
  */
 _.prototype.inner_HTML = function(DOMElement, content, append)
 {
-    content = this.is_array(content) ? content.join("\n") : content;
+    append = this.is_undefined(append) ? false : append;
 
-    if (append)
-    {
-        DOMElement.innerHTML += content;
-    }
-    else
+    if (!append)
     {
         this.clear_event_listeners(DOMElement, true);
 
-        DOMElement.innerHTML = content;
+        DOMElement.innerHTML = '';
     }
+
+    this._recursive_dom_element(content, DOMElement);
 
     this.trigger_event(DOMElement, `frontbx:dom:mutate`);
 
@@ -4757,18 +4755,9 @@ _.prototype.width = function(DOMElement, borderBox)
  * @param  {DOMElement}   DOMElement Target element
  * @return {object}
  */
-_.prototype.height = function(DOMElement, borderBox)
+_.prototype.height = function(DOMElement)
 {
     if (DOMElement === window || DOMElement === document || DOMElement === document.documentElement) return Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-
-    if (borderBox)
-    {
-        let h    = parseInt(this.rendered_style(DOMElement, 'height'));
-        let padT = parseInt(this.rendered_style(DOMElement, 'padding-top'));
-        let padB = parseInt(this.rendered_style(DOMElement, 'padding-bottom'));
-
-        return parseInt(h - padT - padB);
-    }
 
     return this.css_unit_value(this.rendered_style(DOMElement, 'height'));
 }
@@ -13800,7 +13789,7 @@ container.singleton('_', _);
 	     * @return {Function}
 	     */
 	    function _comoponentRenderFn(fn, props)
-	    {        
+	    {
 	        if (is_constructed(fn))
 	        {           
 	            if (!fn.render) throw new Error('Object Components must implement the [render] method');

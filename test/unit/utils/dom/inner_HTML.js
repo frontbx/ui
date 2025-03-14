@@ -1,27 +1,129 @@
-/**
- * Replace or append a node's innerHTML
- *
- * @access {public}
- * @param  {DOMElement}   DOMElement  Target element
- * @param  {string} content     Target content
- * @param  {bool}   append      Append innerHTML or replace (optional) (default false)
- */
-_.prototype.inner_HTML = function(DOMElement, content, append)
+import TestCase from '../../../testcase.js';
+
+class Test extends TestCase
 {
-    content = this.is_array(content) ? content.join("\n") : content;
+   run()
+   {
+        describe('inner_HTML()', () =>
+        {
+            let scratch;
 
-    if (append)
-    {
-        DOMElement.innerHTML += content;
+            const [inner_HTML] = frontbx.import(['inner_HTML']).from('_');
+            
+            beforeEach(() =>
+            {
+                scratch = this.setupScratch();
+            });
+
+            afterEach(() =>
+            {
+                this.teardown(scratch);
+            });
+
+            it('should insert string content', () =>
+            {
+                inner_HTML(scratch, 'foobar');
+
+                this.expect(scratch.innerHTML).to.equal('foobar');
+            });
+
+            it('should insert html string content', () =>
+            {
+                inner_HTML(scratch, '<span>foobar</span>');
+
+                this.expect(scratch.children[0].tagName.toLowerCase()).to.equal('span');
+
+                this.expect(scratch.children[0].innerHTML).to.equal('foobar');
+            });
+
+            it('should insert string arrays', () =>
+            {
+                inner_HTML(scratch, ['foo', 'bar']);
+
+                this.expect(scratch.innerHTML).to.equal('foobar');
+            });
+
+            it('should insert html string arrays', () =>
+            {
+                inner_HTML(scratch, ['<span>foo</span>', '<span>bar</span>']);
+
+                this.expect(scratch.children[0].tagName.toLowerCase()).to.equal('span');
+
+                this.expect(scratch.children[0].innerHTML).to.equal('foo');
+
+                this.expect(scratch.children[1].tagName.toLowerCase()).to.equal('span');
+
+                this.expect(scratch.children[1].innerHTML).to.equal('bar');
+            });
+
+
+            it('should insert html mixed arrays', () =>
+            {
+                inner_HTML(scratch, ['<span>foo</span>', '<span>bar</span>', document.createElement('div')]);
+
+                this.expect(scratch.children[0].tagName.toLowerCase()).to.equal('span');
+
+                this.expect(scratch.children[0].innerHTML).to.equal('foo');
+
+                this.expect(scratch.children[1].tagName.toLowerCase()).to.equal('span');
+
+                this.expect(scratch.children[1].innerHTML).to.equal('bar');
+
+                this.expect(scratch.children[2].tagName.toLowerCase()).to.equal('div');
+            });
+
+            it('should append string content', () =>
+            {
+                inner_HTML(scratch, 'foo');
+
+                inner_HTML(scratch, 'bar', true);
+
+                this.expect(scratch.innerHTML).to.equal('foobar');
+            });
+
+            it('should append html string content', () =>
+            {
+                inner_HTML(scratch, '<span>foo</span>');
+
+                inner_HTML(scratch, '<span>bar</span>', true);
+
+                this.expect(scratch.children[0].tagName.toLowerCase()).to.equal('span');
+
+                this.expect(scratch.children[0].innerHTML).to.equal('foo');
+
+                this.expect(scratch.children[1].tagName.toLowerCase()).to.equal('span');
+
+                this.expect(scratch.children[1].innerHTML).to.equal('bar');
+            });
+
+            it('should append string arrays', () =>
+            {
+                inner_HTML(scratch, 'foo');
+
+                inner_HTML(scratch, ['bar'], true);
+
+                this.expect(scratch.innerHTML).to.equal('foobar');
+            });
+
+            it('should append html string arrays', () =>
+            {
+                inner_HTML(scratch, '<span>foo</span>');
+
+                inner_HTML(scratch, ['<span>bar</span>'], true);
+
+                this.expect(scratch.children[0].tagName.toLowerCase()).to.equal('span');
+
+                this.expect(scratch.children[0].innerHTML).to.equal('foo');
+
+                this.expect(scratch.children[1].tagName.toLowerCase()).to.equal('span');
+
+                this.expect(scratch.children[1].innerHTML).to.equal('bar');
+            });
+
+        });
     }
-    else
-    {
-        this.clear_event_listeners(DOMElement, true);
-
-        DOMElement.innerHTML = content;
-    }
-
-    this.trigger_event(DOMElement, `frontbx:dom:mutate`);
-
-    this.trigger_event(window, `frontbx:dom:mutate`, { DOMElement: DOMElement });
 }
+
+let test = new Test();
+
+test.run();

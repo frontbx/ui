@@ -8,18 +8,16 @@
  */
 _.prototype.inner_HTML = function(DOMElement, content, append)
 {
-    content = this.is_array(content) ? content.join("\n") : content;
+    append = this.is_undefined(append) ? false : append;
 
-    if (append)
-    {
-        DOMElement.innerHTML += content;
-    }
-    else
+    if (!append)
     {
         this.clear_event_listeners(DOMElement, true);
 
-        DOMElement.innerHTML = content;
+        DOMElement.innerHTML = '';
     }
+
+    this._recursive_dom_element(content, DOMElement);
 
     this.trigger_event(DOMElement, `frontbx:dom:mutate`);
 

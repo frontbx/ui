@@ -252,7 +252,7 @@ Frontbx comes with 5 basic loading animators. Use the base class `.loader` with 
             <img data-src="../../assets/img/trump-avatar.jpg" class="img-responsive js-lazyload lazyload grayscale" src="../../assets/img/trump-avatar_thumb.jpg" />
         </div>
         <div class="avatar">
-            <span class="fa fa-heart3 color-danger"></span>
+            <span class="fa fa-user color-danger"></span>
         </div>
         <div class="avatar">
             <span class="initials">DT</span>
@@ -265,7 +265,7 @@ Frontbx comes with 5 basic loading animators. Use the base class `.loader` with 
     <img ... />
 </div>
 <div class="avatar">
-    <span class="fa fa-heart3 color-danger"></span>
+    <span class="fa fa-user color-danger"></span>
 </div>
 <div class="avatar">
     <span class="initials">DT</span>
@@ -280,10 +280,10 @@ Adjust sizing and backgrounds using the available sizing modifiers `.avatar-xs` 
             <img data-src="../../assets/img/trump-avatar.jpg" class="img-responsive js-lazyload lazyload grayscale" src="../../assets/img/trump-avatar_thumb.jpg" />
         </div>
         <div class="avatar avatar-sm">
-            <span class="fa fa-heart3 color-danger"></span>
+            <span class="fa fa-user color-danger"></span>
         </div>
         <div class="avatar avatar-md">
-            <span class="fa fa-heart3 color-danger"></span>
+            <span class="fa fa-user color-danger"></span>
         </div>
         <div class="avatar avatar-lg">
             <span class="initials">DT</span>
@@ -300,11 +300,11 @@ Adjust sizing and backgrounds using the available sizing modifiers `.avatar-xs` 
 </div>
 
 <div class="avatar avatar-sm">
-    <span class="fa fa-heart3 color-danger"></span>
+    <span class="fa fa-user color-danger"></span>
 </div>
 
 <div class="avatar avatar-md">
-    <span class="fa fa-heart3 color-danger"></span>
+    <span class="fa fa-user color-danger"></span>
 </div>
 
 <div class="avatar avatar-lg">

@@ -81,7 +81,30 @@ class Test extends TestCase
 
                 style.parentNode.removeChild(style);
             });
-           
+
+            it('should ignore ignore padding and borders', () =>
+            {
+                scratch.style.height  = '50px';
+                 scratch.style.borderTop = '5px solid';
+                scratch.style.padding = '20px';
+
+                this.expect(height(scratch)).to.equal(50);
+            });
+
+            it('should work on hidden elements', () =>
+            {
+                scratch.style.height  = '50px';
+                scratch.style.display = 'none';
+                scratch.style.visibility = 'hidden';
+                scratch.style.opacity    = '0';
+
+                this.expect(height(scratch)).to.equal(50);
+
+                this.expect(scratch.style.display).to.equal('none');
+                this.expect(scratch.style.visibility).to.equal('hidden');
+                this.expect(scratch.style.opacity).to.equal('0');
+            });
+
         });
     }
 }
